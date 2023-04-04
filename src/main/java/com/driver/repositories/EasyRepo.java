@@ -177,7 +177,7 @@ public class EasyRepo {
                 }
             }
         }
-        return "FAILURE";
+        return null;
     }
 
     public int calculateRevenueOfAFlight(Integer flightId) {
