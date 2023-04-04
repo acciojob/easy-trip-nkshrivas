@@ -116,8 +116,8 @@ public class EasyRepo {
         //Also if the passenger has already booked a flight then also return "FAILURE".
         //else if you are able to book a ticket then return "SUCCESS"
 
-        int numberOfPassengers=bookingDb.get(flightId).size();
-        if(numberOfPassengers>=flightDb.get(flightId).getMaxCapacity() || bookingDb.get(flightId).contains(passengerId))
+
+        if(  bookingDb.get(flightId).contains(passengerId) || bookingDb.get(flightId).size()>=flightDb.get(flightId).getMaxCapacity() )
             return "FAILURE";
 
 
