@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EaseMyTrip {
+public abstract class EaseMyTrip {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EaseMyTrip.class, args);
