@@ -82,15 +82,17 @@ public class EasyRepo {
         int peopleCount=0;
 
             //from airport db we will get city using airport name
+        if(!airportDb.isEmpty()) {
             City city = airportDb.get(airportName).getCity();
-        if(!flightDb.isEmpty()) {
-            //check all flights which city matched the airport city then
-            for (Flight ft : flightDb.values()) {
-                // it is from city than match the date of flight with the date
-                if (ft.getFromCity().equals(city) && date.equals(ft.getFlightDate())) {
-                    peopleCount += ft.getMaxCapacity();
-                } else if (ft.getToCity().equals(city) && date.equals(new Date(ft.getFlightDate().getTime() + (long) (ft.getDuration() * 60 * 60 * 1000)))) {
-                    peopleCount += ft.getMaxCapacity();
+            if (!flightDb.isEmpty()) {
+                //check all flights which city matched the airport city then
+                for (Flight ft : flightDb.values()) {
+                    // it is from city than match the date of flight with the date
+                    if (ft.getFromCity().equals(city) && date.equals(ft.getFlightDate())) {
+                        peopleCount += ft.getMaxCapacity();
+                    } else if (ft.getToCity().equals(city) && date.equals(new Date(ft.getFlightDate().getTime() + (long) (ft.getDuration() * 60 * 60 * 1000)))) {
+                        peopleCount += ft.getMaxCapacity();
+                    }
                 }
             }
         }
