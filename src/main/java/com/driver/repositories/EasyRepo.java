@@ -106,7 +106,7 @@ public class EasyRepo {
         //Suppose if 2 people have booked the flight already : the price of flight for the third person will be 3000 + 2*50 = 3100
         //This will not include the current person who is trying to book, he might also be just checking price
 
-        int noOfP=0;
+        int noOfP=1;
         if(!bookingDb.isEmpty() && bookingDb.containsKey(flightId)){
              noOfP+=bookingDb.get(flightId).size();
         }
