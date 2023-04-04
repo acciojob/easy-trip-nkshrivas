@@ -81,19 +81,19 @@ public class EasyRepo {
 
         int peopleCount=0;
 
-        //from airport db we will get city using airport name
-        City city = airportDb.get(airportName).getCity();
-
-        //check all flights which city matched the airport city then
-        for(Flight ft:flightDb.values()){
-            // it is from city than match the date of flight with the date
-            if(ft.getFromCity().equals(city) && date.equals(ft.getFlightDate())){
-                peopleCount+=ft.getMaxCapacity();
-            } else if (ft.getToCity().equals(city) && date.equals(new Date(ft.getFlightDate().getTime()+(long)(ft.getDuration()*60*60*1000)))) {
-                 peopleCount+=ft.getMaxCapacity();
+            //from airport db we will get city using airport name
+            City city = airportDb.get(airportName).getCity();
+        if(!flightDb.isEmpty()) {
+            //check all flights which city matched the airport city then
+            for (Flight ft : flightDb.values()) {
+                // it is from city than match the date of flight with the date
+                if (ft.getFromCity().equals(city) && date.equals(ft.getFlightDate())) {
+                    peopleCount += ft.getMaxCapacity();
+                } else if (ft.getToCity().equals(city) && date.equals(new Date(ft.getFlightDate().getTime() + (long) (ft.getDuration() * 60 * 60 * 1000)))) {
+                    peopleCount += ft.getMaxCapacity();
+                }
             }
         }
-
 
         return peopleCount;
     }
@@ -154,9 +154,11 @@ public class EasyRepo {
     public int countOfBookingsDoneByPassengerAllCombined(Integer passengerId) {
         //Tell the count of flight bookings done by a passenger: This will tell the total count of flight bookings done by a passenger :
         int pBookCount=0;
-        for(List<Integer> pb:bookingDb.values()){
-            if(pb.contains(passengerId)){
-                pBookCount++;
+        if(!bookingDb.isEmpty()) {
+            for (List<Integer> pb : bookingDb.values()) {
+                if (pb.contains(passengerId)) {
+                    pBookCount++;
+                }
             }
         }
         return pBookCount;
@@ -172,12 +174,14 @@ public class EasyRepo {
         //We need to get the starting airportName from where the flight will be taking off (Hint think of City variable if that can be of some use)
         //return null incase the flightId is invalid or you are not able to find the airportName
 
-        if(flightDb.containsKey(flightId)){
+        if(!flightDb.isEmpty() && flightDb.containsKey(flightId)){
             Flight ft=flightDb.get(flightId);
             City airportCity=ft.getFromCity();
-            for(Airport ap:airportDb.values()){
-                if(ap.getCity().equals(airportCity)){
-                    return ap.getAirportName();
+            if(!airportDb.isEmpty()) {
+                for (Airport ap : airportDb.values()) {
+                    if (ap.getCity().equals(airportCity)) {
+                        return ap.getAirportName();
+                    }
                 }
             }
         }
