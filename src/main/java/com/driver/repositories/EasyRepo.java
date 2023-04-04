@@ -105,7 +105,7 @@ public class EasyRepo {
         //This will not include the current person who is trying to book, he might also be just checking price
 
         int noOfP=0;
-        if(bookingDb.containsKey(flightId)){
+        if(!bookingDb.isEmpty() && bookingDb.containsKey(flightId)){
              noOfP+=bookingDb.get(flightId).size();
         }
         return noOfP*50+3000;
@@ -121,7 +121,7 @@ public class EasyRepo {
         //else if you are able to book a ticket then return "SUCCESS"
 
 
-        if(  bookingDb.get(flightId).contains(passengerId) || bookingDb.get(flightId).size()>=flightDb.get(flightId).getMaxCapacity() )
+        if(  bookingDb.isEmpty() || bookingDb.get(flightId).contains(passengerId) || bookingDb.get(flightId).size()>=flightDb.get(flightId).getMaxCapacity() )
             return "FAILURE";
 
 
@@ -144,7 +144,7 @@ public class EasyRepo {
         // Otherwise return a "SUCCESS" message
         // and also cancel the ticket that passenger had booked earlier on the given flightId
 
-        if(!bookingDb.containsKey(flightId) || !bookingDb.get(flightId).contains(passengerId)){
+        if(bookingDb.isEmpty() || !bookingDb.containsKey(flightId) || !bookingDb.get(flightId).contains(passengerId)){
             return "FAILURE";
         }
         bookingDb.remove(flightId);
