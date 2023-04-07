@@ -17,6 +17,8 @@ public class EasyRepo {
     HashMap<Integer, List<Integer>> bookingDb;
     HashMap<Integer,Passenger> passengerDb;
 
+    private int totalRevenue;
+
 
 
 
@@ -26,6 +28,7 @@ public class EasyRepo {
         flightDb=new HashMap<>();
         bookingDb=new HashMap<>();
         passengerDb=new HashMap<>();
+        totalRevenue=0;
 
 
 
@@ -127,8 +130,9 @@ public class EasyRepo {
             return "FAILURE";
 
 
+        totalRevenue+=calculateRevenueOfAFlight(flightId);
 
-         if(!bookingDb.containsKey(flightId)){
+        if(!bookingDb.containsKey(flightId)){
              List<Integer> pas=new ArrayList<>();
              pas.add(passengerId);
              bookingDb.put(flightId,pas);
@@ -150,6 +154,8 @@ public class EasyRepo {
             return "FAILURE";
         }
         bookingDb.remove(flightId);
+        totalRevenue-=calculateRevenueOfAFlight(flightId);
+
         return "SUCCESS";
     }
 
@@ -195,7 +201,9 @@ public class EasyRepo {
         //That is of all the passengers that have booked a flight till now and then calculate the revenue
         //Revenue will also decrease if some passenger cancels the flight
 
-        return 0;
+
+
+        return totalRevenue;
 
     }
 
